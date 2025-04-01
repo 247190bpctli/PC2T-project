@@ -4,10 +4,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class CybersecurityStudent extends Student {
-	public CybersecurityStudent(String Name, String Surname, int yearOfBirth) {
-		super(Name, Surname, yearOfBirth);
+	public CybersecurityStudent(String name, String surname, int yearOfBirth) {
+		super(name, surname, yearOfBirth);
 	}
-	
+
 	private String getHash(String word) {
 		MessageDigest messageDigest;
 		try {
