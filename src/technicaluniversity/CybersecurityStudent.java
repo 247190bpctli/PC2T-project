@@ -1,12 +1,14 @@
 package technicaluniversity;
 
 public class CybersecurityStudent extends Student {
-	public CybersecurityStudent(String Name, String Surname, String DateOfBirth) {
-		super(Name, Surname, DateOfBirth);
+	public CybersecurityStudent(String Name, String Surname, int yearOfBirth) {
+		super(Name, Surname, yearOfBirth);
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getNameHash() {
-		return ""; //TODO: body
+	@Override
+	public String specialAbility() {
+		// TODO return name hash
+		return null;
 	}
 }

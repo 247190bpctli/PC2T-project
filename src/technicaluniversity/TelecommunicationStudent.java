@@ -1,14 +1,14 @@
 package technicaluniversity;
 
-import java.util.HashSet;
-
 public class TelecommunicationStudent extends Student{
-	public TelecommunicationStudent(String Name, String Surname, String DateOfBirth) {
-		super(Name, Surname, DateOfBirth);
+	public TelecommunicationStudent(String Name, String Surname, int yearOfBirth) {
+		super(Name, Surname, yearOfBirth);
 		// TODO Auto-generated constructor stub
 	}
 
-	public HashSet<Boolean> getNameAsMorse() {
-		return new HashSet<Boolean>(); //TODO: body
+	@Override
+	public String specialAbility() {
+		// TODO return name as morse
+		return null;
 	}
 }

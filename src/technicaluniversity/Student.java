@@ -1,26 +1,33 @@
 package technicaluniversity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Student {
-	private String Name;
-	private String Surname;
-	private String DateOfBirth; //TODO: make a special variable or use special one
-	private List<Float> Grades;
-
-	public Student(String Name, String Surname, String DateOfBirth) {
-		this.Name = Name;
-		this.Surname = Surname;
-		this.DateOfBirth = DateOfBirth;
+	private String name;
+	private String surname;
+	private int yearOfBirth;
+	private List<Float> grades;
+	
+	public static enum StudentType{
+		CYBERSECURITY,
+		TELECOMMUNICATION
 	}
 
-	public void addGrade(int Id, float Grade) {
+	public Student(String name, String surname, int yearOfBirth) {
+		this.name = name;
+		this.surname = surname;
+		this.yearOfBirth = yearOfBirth;
+		grades = new ArrayList<Float>();
+	}
+
+	public void addGrade(float Grade) {
 		//TODO: check if grade in range 1-5, otherwise throw exception
-		Grades.add(Grade);
+		grades.add(Grade);
 	}
 
-	public String getDateOfBirth() {
-		return DateOfBirth;
+	public int getYearOfBirth() {
+		return yearOfBirth;
 	}
 
 	//public void setDateOfBirth(String dateOfBirth) {
@@ -28,7 +35,7 @@ public abstract class Student {
 	//}
 
 	public String getSurname() {
-		return Surname;
+		return surname;
 	}
 
 	//public void setSurname(String surname) {
@@ -36,10 +43,21 @@ public abstract class Student {
 	//}
 
 	public String getName() {
-		return Name;
+		return name;
 	}
+
+	public abstract String specialAbility();
 
 	//public void setName(String name) {
 	//	Name = name;
 	//}
+
+	@Override
+	public String toString() {
+		return "Jméno: "+name+", příjmení: "+surname+", rok narození: "+yearOfBirth+", průměr: "+getAvgGrade();
+	}
+
+	private String getAvgGrade() {
+		return null; //TODO avg grade
+	}
 }

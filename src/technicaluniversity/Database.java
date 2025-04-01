@@ -1,14 +1,55 @@
 package technicaluniversity;
 
-import java.util.HashSet;
+import java.util.HashMap;
+
+import technicaluniversity.Student.StudentType;
 
 public class Database {
-	private HashSet<Student> Students;
+	private HashMap<Integer, Student> students;
+	
+	public Database() {
+		students = new HashMap<Integer, Student>();
+	}
 	
 	private static int LAST_ID = 0;
 		
-	public void addCybersecurityStudent(String Name, String Surname, String DateOfBirth) {
-		Students.add(new CybersecurityStudent(Name, Surname, DateOfBirth)); // LAST_ID + 1, 
-		LAST_ID++;
+	public int addStudent(StudentType type, String name, String surname, int dateOfBirth) {
+		switch(type.toString()) {
+			case "CYBERSECURITY": //TODO simplify this
+				students.put(LAST_ID + 1, new CybersecurityStudent(name, surname, dateOfBirth));
+				LAST_ID++;
+				return LAST_ID;
+		case "TELECOMMUNICATION":
+				students.put(LAST_ID + 1, new TelecommunicationStudent(name, surname, dateOfBirth));
+				LAST_ID++;
+				return LAST_ID;
+			default:
+				//TODO throw exception?
+				return -1;
+		}
+	}
+	
+	public Student getStudent(int id) {
+		return students.get(id); //TODO throw exception if null
+	}
+	
+	public void deleteStudent(int id) {
+		students.remove(id);
+	}
+	
+	public void loadStudentFromFile(int id) {
+		//TODO: load from file
+	}
+	
+	public void saveStudentToFile(int id) {
+		//TODO: save to file
+	}
+	
+	public void loadFromDb() {
+		//TODO: load from db
+	}
+	
+	public void saveToDb() {
+		//TODO: save to db
 	}
 }
