@@ -38,37 +38,37 @@ public class Main {
             System.out.println("--------------------------------------");
             System.out.print("Zvolte možnost: ");
 
-            optn = sc.nextInt();
+            optn = InputSanitizer.nextInt(sc);
 
             switch (optn) {
 	            case 1:
 	                System.out.println("Zadejte skupinu studenta [CYBERSECURITY/TELECOMMUNICATION], jméno, příjmení a rok narození");
-	                type = StudentType.valueOf(sc.next().toUpperCase());
+	                type = StudentType.valueOf(sc.next().toUpperCase()); //TODO sanitize input
 	                name = sc.next();
 	                surname = sc.next();
-	                yearOfBirth = sc.nextInt(); //TODO sanitize input
+	                yearOfBirth = InputSanitizer.nextInt(sc);
 	                System.out.println("ID nového studenta je "+db.addStudent(type, name, surname, yearOfBirth));
 	                break;
 	            case 2:
 	                System.out.println("Zadej ID studenta a známku");
-	                id = sc.nextInt();
-	                grade = sc.nextFloat();
+	                id = InputSanitizer.nextInt(sc);
+	                grade = InputSanitizer.nextFloat(sc);
 	                db.getStudent(id).addGrade(grade);
 	                break;
 	            case 3:
 	                System.out.println("Zadej ID studenta ke smazání");
-	                id = sc.nextInt();
+	                id = InputSanitizer.nextInt(sc);
 	                db.deleteStudent(id);
 	                break;
 	            case 4:
 	                System.out.println("Zadej ID studenta k vyhledání");
-	                id = sc.nextInt();
+	                id = InputSanitizer.nextInt(sc);
 	                System.out.println(db.getStudent(id).toString());
 	                break;
 	            case 5:
 	            	System.out.println("Studenti kyberbezpečnosti udělají hash svého jména, studenti telekomunikací řeknou jméno v Morseově abecedě");
 	                System.out.println("Zadej ID studenta ke spuštění dovednosti");
-	                id = sc.nextInt();
+	                id = InputSanitizer.nextInt(sc);
 	                System.out.println(db.getStudent(id).specialAbility());
 	                break;
 	            case 6:
