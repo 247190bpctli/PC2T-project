@@ -7,19 +7,20 @@ public class CybersecurityStudent extends Student {
 	public CybersecurityStudent(String Name, String Surname, int yearOfBirth) {
 		super(Name, Surname, yearOfBirth);
 	}
-
-	@Override
-	public String specialAbility() {
+	
+	private String getHash(String word) {
 		MessageDigest messageDigest;
 		try {
 			messageDigest = MessageDigest.getInstance("SHA-512");
-			messageDigest.update(super.getName().getBytes());
-			String name = messageDigest.digest().toString();
-			messageDigest.update(super.getSurname().getBytes());
-			String surname = messageDigest.digest().toString();
-			return "Jméno: "+name+", příjmení: "+surname;
+			messageDigest.update(word.getBytes());
+			return messageDigest.digest().toString();
 		} catch (NoSuchAlgorithmException e) {
 			return "SHA-512 není podporován, nelze provést hashování";
 		}
+	}
+
+	@Override
+	public String specialAbility() {
+		return "Jméno: "+getHash(getName())+", příjmení: "+getHash(getSurname());
 	}
 }
