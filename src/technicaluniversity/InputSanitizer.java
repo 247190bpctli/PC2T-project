@@ -8,6 +8,7 @@ public class InputSanitizer {
 			return sc.nextInt();
 		}else{
 			System.out.println("Zadej celé číslo");
+			sc.next();
 			return nextInt(sc);
 		}
 	}
@@ -17,6 +18,7 @@ public class InputSanitizer {
 			return sc.nextFloat();
 		}else{
 			System.out.println("Zadej desetinné číslo");
+			sc.next();
 			return nextFloat(sc);
 		}
 	}
