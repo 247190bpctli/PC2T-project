@@ -75,8 +75,10 @@ public class Main {
 	            	System.out.print(db.getSortedStudents());
 	                break;
 	            case 7:
-	                System.out.println("todo");
-	                break;
+                    System.out.println("Studijní průměry v jednotlivých studijních skupinách");
+                    System.out.println("Skupina kyberbezpečnost: "+db.getStudentAvgGrade().get(0));
+                    System.out.println("Skupina telekomunikace: "+db.getStudentAvgGrade().get(1));
+                    break;
                 case 8:
                     System.out.println("Počty zapsaných studentů v jednotlivých studijních skupinách");
                     System.out.println("Skupina kyberbezpečnost: "+db.getStudentCounts().get(0));

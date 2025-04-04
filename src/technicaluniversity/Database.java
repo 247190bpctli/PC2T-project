@@ -76,6 +76,23 @@ public class Database {
 		return Arrays.asList(CybersecurityStudentCount, TelecommunicationStudentCount);
 	}
 
+	public List<Float> getStudentAvgGrade() {
+		float CybersecurityStudentAvgGrage = 0;
+		float TelecommunicationStudentAvgGrage = 0;
+
+		ArrayList<Student> list = new ArrayList<Student>(students.values());
+
+		for(Student student:list) {
+			if(student instanceof CybersecurityStudent) {
+				CybersecurityStudentAvgGrage += student.getAvgGrade();
+			}else {
+				TelecommunicationStudentAvgGrage += student.getAvgGrade();
+			}
+		}
+
+		return Arrays.asList(CybersecurityStudentAvgGrage/getStudentCounts().get(0), TelecommunicationStudentAvgGrage/getStudentCounts().get(1));
+	} //TODO: fix returns NaN if empty
+
 	public void loadStudentFromFile(int id) {
 		//TODO: load from file
 	}
