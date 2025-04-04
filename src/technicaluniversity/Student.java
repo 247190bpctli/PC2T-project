@@ -57,7 +57,7 @@ public abstract class Student {
 		return "Jméno: "+name+", příjmení: "+surname+", rok narození: "+yearOfBirth+", průměr: "+getAvgGrade();
 	}
 
-	private float getAvgGrade() {
+	public float getAvgGrade() {
 		//sum all grades and divide them
 		Float gradeSum = 0f;
 		if(!grades.isEmpty()){
