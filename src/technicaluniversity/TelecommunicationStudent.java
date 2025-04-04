@@ -64,4 +64,9 @@ public class TelecommunicationStudent extends Student{
 	public String specialAbility() {
 		return "Jméno: "+morseEncode(getName())+", příjmení: "+morseEncode(getSurname());
 	}
+
+	@Override
+	public String toString() {
+		return super.toString()+", skupina: telekomunikace";
+	}
 }

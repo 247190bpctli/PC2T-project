@@ -23,4 +23,9 @@ public class CybersecurityStudent extends Student {
 	public String specialAbility() {
 		return "Jméno: "+getHash(getName())+", příjmení: "+getHash(getSurname());
 	}
+
+	@Override
+	public String toString() {
+		return super.toString()+", skupina: kyberbezpečnost";
+	}
 }
