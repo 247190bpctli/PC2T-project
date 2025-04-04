@@ -93,7 +93,7 @@ public class Database {
 		return Arrays.asList(CybersecurityStudentAvgGrage/getStudentCounts().get(0), TelecommunicationStudentAvgGrage/getStudentCounts().get(1));
 	} //TODO: fix returns NaN if empty
 
-	public void loadStudentFromFile(int id) {
+	public void loadStudentFromFile(String filename) {
 		//TODO: load from file
 	}
 

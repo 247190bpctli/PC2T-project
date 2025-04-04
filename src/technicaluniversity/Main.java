@@ -85,10 +85,14 @@ public class Main {
                     System.out.println("Skupina telekomunikace: "+db.getStudentCounts().get(1));
                     break;
                 case 9:
-                    System.out.println("todo");
+                    System.out.println("Zadejte název souboru pro načtení studenta");
+                    name = sc.next();
+                    db.loadStudentFromFile(name);
                     break;
                 case 10:
-                    System.out.println("todo");
+                	System.out.println("Zadejte ID studenta pro uložení do souboru");
+                    id = InputSanitizer.nextInt(sc);
+                    db.saveStudentToFile(id);
                     break;
                 case 11:
                     db.saveToDb();
