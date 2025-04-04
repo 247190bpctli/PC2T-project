@@ -78,7 +78,9 @@ public class Main {
 	                System.out.println("todo");
 	                break;
                 case 8:
-                	System.out.println("todo");
+                    System.out.println("Počty zapsaných studentů v jednotlivých studijních skupinách");
+                    System.out.println("Skupina kyberbezpečnost: "+db.getStudentCounts().get(0));
+                    System.out.println("Skupina telekomunikace: "+db.getStudentCounts().get(1));
                     break;
                 case 9:
                     System.out.println("todo");

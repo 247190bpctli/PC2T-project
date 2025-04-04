@@ -1,9 +1,11 @@
 package technicaluniversity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 
 import technicaluniversity.Student.StudentType;
 
@@ -55,6 +57,23 @@ public class Database {
 		}
 
 		return sortedStudents;
+	}
+
+	public List<Integer> getStudentCounts(){
+		int CybersecurityStudentCount = 0;
+		int TelecommunicationStudentCount = 0;
+
+		ArrayList<Student> list = new ArrayList<Student>(students.values());
+
+		for(Student student:list) {
+			if(student instanceof CybersecurityStudent) {
+				CybersecurityStudentCount++;
+			}else {
+				TelecommunicationStudentCount++;
+			}
+		}
+
+		return Arrays.asList(CybersecurityStudentCount, TelecommunicationStudentCount);
 	}
 
 	public void loadStudentFromFile(int id) {
