@@ -1,7 +1,6 @@
 package technicaluniversity;
 
 import java.util.Scanner;
-
 import technicaluniversity.Student.StudentType;
 
 public class Main {
@@ -72,7 +71,8 @@ public class Main {
 	                System.out.println(db.getStudent(id).specialAbility());
 	                break;
 	            case 6:
-	                System.out.println("todo");
+	            	System.out.println("Seznam studentů dle příjmení");
+	            	System.out.print(db.getSortedStudents());
 	                break;
 	            case 7:
 	                System.out.println("todo");
