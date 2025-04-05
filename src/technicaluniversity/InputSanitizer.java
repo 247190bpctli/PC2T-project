@@ -2,6 +2,8 @@ package technicaluniversity;
 
 import java.util.Scanner;
 
+import technicaluniversity.Student.StudentType;
+
 public class InputSanitizer {
 	public static int nextInt(Scanner sc) {
 		if(sc.hasNextInt()) {
@@ -21,5 +23,9 @@ public class InputSanitizer {
 			sc.next();
 			return nextFloat(sc);
 		}
+	}
+
+	public static StudentType nextType(Scanner sc) {
+		return StudentType.valueOf(sc.next().toUpperCase()); //TODO sanitize input
 	}
 }
