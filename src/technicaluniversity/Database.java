@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 import technicaluniversity.Student.StudentType;
 
@@ -94,11 +95,23 @@ public class Database {
 	} //TODO: fix returns NaN if empty
 
 	public void loadStudentFromFile(String filename) {
-		//TODO: load from file
-	}
+		CsvDriver studentFileDriver = new CsvDriver(filename);
+		List<List<String>> studentFile = studentFileDriver.load();
 
-	public void saveStudentToFile(int id) {
-		//TODO: save to file
+		//insert student to db
+		StudentType type = InputSanitizer.nextType(new Scanner(studentFile.get(3).get(1))); //TODO workaround, may be done differently
+		int id = addStudent(type, studentFile.get(0).get(1), studentFile.get(1).get(1), Integer.valueOf(studentFile.get(2).get(1))); //TODO sanitize inputs
+
+		//insert grades
+		List<String> gradesStrings = studentFile.get(4).subList(1, studentFile.get(4).size());
+		List<Float> grades = new ArrayList<Float>();
+
+		//convert the types
+		for(String gradeString:gradesStrings) grades.add(Float.valueOf(gradeString));
+
+		for(Float grade:grades) {
+			getStudent(id).addGrade(grade);
+		}
 	}
 
 	public void loadFromDb() {
