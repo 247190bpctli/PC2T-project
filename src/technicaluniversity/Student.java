@@ -69,4 +69,33 @@ public abstract class Student {
 			return gradeSum;
 		}
 	}
+
+	public void saveToFile(String filename) {
+		CsvDriver studentFileDriver = new CsvDriver(filename);
+		List<List<String>> studentFile = new ArrayList<List<String>>();
+		for(int i = 0; i < 5; i++) { //make 2d list
+			studentFile.add(new ArrayList<String>());
+		}
+
+		//insert student params and headers to list
+		studentFile.get(0).add("Name");
+		studentFile.get(0).add(name);
+
+		studentFile.get(1).add("Surname");
+		studentFile.get(1).add(surname);
+
+		studentFile.get(2).add("Year of birth");
+		studentFile.get(2).add(Integer.toString(yearOfBirth));
+
+		studentFile.get(3).add("Group");
+		String group = (this instanceof CybersecurityStudent)?"CYBERSECURITY":"TELECOMMUNICATION";
+		studentFile.get(3).add(group);
+
+		studentFile.get(4).add("Grades");
+		for(Float grade:grades) {
+			studentFile.get(4).add(grade.toString());
+		}
+
+		studentFileDriver.save(studentFile);
+	}
 }

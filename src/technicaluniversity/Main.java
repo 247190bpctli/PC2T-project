@@ -42,7 +42,7 @@ public class Main {
             switch (optn) {
 	            case 1:
 	                System.out.println("Zadejte skupinu studenta [CYBERSECURITY/TELECOMMUNICATION], jméno, příjmení a rok narození");
-	                type = StudentType.valueOf(sc.next().toUpperCase()); //TODO sanitize input
+	                type = InputSanitizer.nextType(sc);
 	                name = sc.next();
 	                surname = sc.next();
 	                yearOfBirth = InputSanitizer.nextInt(sc);
@@ -92,7 +92,9 @@ public class Main {
                 case 10:
                 	System.out.println("Zadejte ID studenta pro uložení do souboru");
                     id = InputSanitizer.nextInt(sc);
-                    db.saveStudentToFile(id);
+                    System.out.println("Zadejte název souboru do kterého chcete studenta uložit");
+                    name = sc.next();
+                    db.getStudent(id).saveToFile(name);
                     break;
                 case 11:
                     db.saveToDb();
