@@ -13,13 +13,12 @@ import technicaluniversity.Student.StudentType;
 
 public class Database {
 	private HashMap<Integer, Student> students;
-	
+	private static int LAST_ID = 0;
+
 	public Database() {
 		students = new HashMap<Integer, Student>();
 	}
 
-	private static int LAST_ID = 0;
-	
 	public int addStudent(StudentType type, String name, String surname, int dateOfBirth) {
 		switch(type.toString()) {
 			case "CYBERSECURITY": //TODO simplify this

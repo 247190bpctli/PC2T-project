@@ -15,7 +15,7 @@ public class InputSanitizer {
 			return nextInt(sc);
 		}
 	}
-	
+
 	public static float nextFloat(Scanner sc) {
 		if(sc.hasNextFloat()) {
 			return sc.nextFloat();

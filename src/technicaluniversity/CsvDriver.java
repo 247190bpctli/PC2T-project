@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 public class CsvDriver {
 	private File csvFile;
 	private List<List<String>> content;
-	
+
 	public CsvDriver(String path){
 		csvFile = new File(path); //TODO handle not found exception
 	}
-	
+
 	public List<List<String>> load() throws IOException {
 		FileReader s = null; //null surpasses not initialized exception
 		BufferedReader br = null;
@@ -27,8 +27,8 @@ public class CsvDriver {
 		br = new BufferedReader(s);
 
 		content = br.lines()
-			           .map(k -> Arrays.asList(k.split(",")))
-			           .collect(Collectors.toCollection(LinkedList::new));
+					.map(k -> Arrays.asList(k.split(",")))
+					.collect(Collectors.toCollection(LinkedList::new));
 
 		try {
 			br.close();

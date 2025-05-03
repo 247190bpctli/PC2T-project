@@ -9,7 +9,7 @@ public abstract class Student {
 	private String surname;
 	private int yearOfBirth;
 	private List<Float> grades;
-	
+
 	public static enum StudentType{
 		CYBERSECURITY,
 		TELECOMMUNICATION
