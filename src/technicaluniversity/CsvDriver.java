@@ -3,7 +3,6 @@ package technicaluniversity;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,58 +19,46 @@ public class CsvDriver {
 		csvFile = new File(path); //TODO handle not found exception
 	}
 	
-	public List<List<String>> load(){
+	public List<List<String>> load() throws IOException {
 		FileReader s = null; //null surpasses not initialized exception
 		BufferedReader br = null;
-		try {
-			s = new FileReader(csvFile);
-			br = new BufferedReader(s);
-			
-			content = br.lines()
+
+		s = new FileReader(csvFile);
+		br = new BufferedReader(s);
+
+		content = br.lines()
 			           .map(k -> Arrays.asList(k.split(",")))
 			           .collect(Collectors.toCollection(LinkedList::new));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				br.close();
-				s.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		} //TODO handle not found exception
+
+		try {
+			br.close();
+			s.close();
+		} catch (IOException e) {
+			System.out.println("Soubor nelze bezpečně uzavřít");
+		} catch (NullPointerException e) {}
 
 		return content;
 	}
 	
-	public void save(List<List<String>> data) {
+	public void save(List<List<String>> data) throws IOException {
 		FileWriter s = null; //null surpasses not initialized exception
 		BufferedWriter br = null;
-		try {
-			s = new FileWriter(csvFile);
-			br = new BufferedWriter(s);
 
-			for(List<String> line:data) {
-				for(String column:line) {
-					br.write(column+","); //TODO remove commas ate?? does not matter anyways
-				}
-				br.write("\n");
+		s = new FileWriter(csvFile);
+		br = new BufferedWriter(s);
+
+		for(List<String> line:data) {
+			for(String column:line) {
+				br.write(column+","); //TODO remove commas ate?? does not matter anyways
 			}
+			br.write("\n");
+		}
+
+		try {
+			br.close();
+			s.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				br.close();
-				s.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		} //TODO handle not found exception
+			System.out.println("Soubor nelze bezpečně uzavřít");
+		} catch (NullPointerException e) {}
 	}
 }

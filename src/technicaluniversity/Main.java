@@ -1,5 +1,6 @@
 package technicaluniversity;
 
+import java.io.IOException;
 import java.util.Scanner;
 import technicaluniversity.Student.StudentType;
 
@@ -70,13 +71,21 @@ public class Main {
 	            case 4:
 	                System.out.println("Zadej ID studenta k vyhledání");
 	                id = InputSanitizer.nextInt(sc);
-	                System.out.println(db.getStudent(id).toString());
+	                try {
+	                	System.out.println(db.getStudent(id).toString());
+	                }catch(NullPointerException e) {
+	                	System.out.println("Student nebyl nalezen");
+	                }
 	                break;
 	            case 5:
 	            	System.out.println("Studenti kyberbezpečnosti udělají hash svého jména, studenti telekomunikací řeknou jméno v Morseově abecedě");
 	                System.out.println("Zadej ID studenta ke spuštění dovednosti");
 	                id = InputSanitizer.nextInt(sc);
-	                System.out.println(db.getStudent(id).specialAbility());
+	                try {
+	                	System.out.println(db.getStudent(id).specialAbility());
+	                }catch(NullPointerException e) {
+	                	System.out.println("Student nebyl nalezen");
+	                }
 	                break;
 	            case 6:
 	            	System.out.println("Seznam studentů dle příjmení");
@@ -95,14 +104,26 @@ public class Main {
                 case 9:
                     System.out.println("Zadejte název souboru pro načtení studenta");
                     name = sc.next();
-                    db.loadStudentFromFile(name);
+                    try {
+                    	db.loadStudentFromFile(name);
+            		} catch (IOException e) {
+            			System.out.println("Soubor nelze otevřít");
+            			System.out.println(e.getMessage());
+            		}
                     break;
                 case 10:
                 	System.out.println("Zadejte ID studenta pro uložení do souboru");
                     id = InputSanitizer.nextInt(sc);
                     System.out.println("Zadejte název souboru do kterého chcete studenta uložit");
                     name = sc.next();
-                    db.getStudent(id).saveToFile(name);
+                    try {
+                    	db.getStudent(id).saveToFile(name);
+	                } catch(NullPointerException e) {
+	                	System.out.println("Student nebyl nalezen");
+	                } catch (IOException e) {
+	 					System.out.println("Soubor nelze uložit");
+	 					System.out.println(e.getMessage());
+					}
                     break;
                 case 11:
                     db.saveToDb();

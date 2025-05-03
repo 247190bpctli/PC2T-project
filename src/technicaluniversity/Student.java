@@ -1,5 +1,6 @@
 package technicaluniversity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +78,7 @@ public abstract class Student {
 		return (this instanceof CybersecurityStudent)?"CYBERSECURITY":"TELECOMMUNICATION";
 	}
 
-	public void saveToFile(String filename) {
+	public void saveToFile(String filename) throws IOException {
 		CsvDriver studentFileDriver = new CsvDriver(filename);
 		List<List<String>> studentFile = new ArrayList<List<String>>();
 		for(int i = 0; i < 5; i++) { //make 2d list

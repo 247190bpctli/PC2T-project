@@ -1,5 +1,6 @@
 package technicaluniversity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -94,7 +95,7 @@ public class Database {
 		return Arrays.asList(CybersecurityStudentAvgGrage/getStudentCounts().get(0), TelecommunicationStudentAvgGrage/getStudentCounts().get(1));
 	} //TODO: fix returns NaN if empty
 
-	public void loadStudentFromFile(String filename) {
+	public void loadStudentFromFile(String filename) throws IOException {
 		CsvDriver studentFileDriver = new CsvDriver(filename);
 		List<List<String>> studentFile = studentFileDriver.load();
 
