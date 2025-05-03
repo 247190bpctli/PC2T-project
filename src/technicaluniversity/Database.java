@@ -20,17 +20,17 @@ public class Database {
 	}
 
 	public int addStudent(StudentType type, String name, String surname, int yearOfBirth) {
-		switch(type.toString()) {
-			case "CYBERSECURITY": //TODO simplify this
+		switch(type) {
+			case CYBERSECURITY:
 				students.put(LAST_ID + 1, new CybersecurityStudent(name, surname, yearOfBirth));
 				LAST_ID++;
 				return LAST_ID;
-		case "TELECOMMUNICATION":
+			case TELECOMMUNICATION:
 				students.put(LAST_ID + 1, new TelecommunicationStudent(name, surname, yearOfBirth));
 				LAST_ID++;
 				return LAST_ID;
 			default:
-				//TODO throw exception?
+				System.out.println("Studijní skupina nenalezena");
 				return -1;
 		}
 	}
