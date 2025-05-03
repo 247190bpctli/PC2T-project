@@ -21,9 +21,12 @@ public abstract class Student {
 		grades = new ArrayList<Float>();
 	}
 
-	public void addGrade(float Grade) {
-		//TODO: check if grade in range 1-5, otherwise throw exception
-		grades.add(Grade);
+	public void addGrade(float grade) {
+		if(grade >= 1 && grade <= 5) {
+			grades.add(grade);
+		}else {
+			System.out.println("Známka nebyla přidána, protože není v povoleném rozsahu 1-5");
+		}
 	}
 
 	public int getYearOfBirth() {
