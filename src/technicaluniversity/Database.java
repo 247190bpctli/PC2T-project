@@ -115,10 +115,19 @@ public class Database {
 	}
 
 	public void loadFromDb() {
-		//TODO: load from db
+		SqlDriver.connect();
+		SqlDriver.createTables(); //must be created in order to suppress error
+		SqlDriver.selectStudentsAndGrades(this);
+		SqlDriver.disconnect();
 	}
 
 	public void saveToDb() {
-		//TODO: save to db
+		SqlDriver.connect();
+		SqlDriver.createTables();
+		SqlDriver.truncate();
+		for(int studentKey:students.keySet()) {
+			students.get(studentKey).saveToDb(studentKey);
+		}
+		SqlDriver.disconnect();
 	}
 }

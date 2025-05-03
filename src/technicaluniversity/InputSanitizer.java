@@ -26,6 +26,10 @@ public class InputSanitizer {
 	}
 
 	public static StudentType nextType(Scanner sc) {
-		return StudentType.valueOf(sc.next().toUpperCase()); //TODO sanitize input
+		return toType(sc.next());
+	}
+
+	public static StudentType toType(String typeString) {
+		return StudentType.valueOf(typeString.toUpperCase()); //TODO sanitize input
 	}
 }

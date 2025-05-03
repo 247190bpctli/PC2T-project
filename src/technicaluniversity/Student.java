@@ -70,6 +70,10 @@ public abstract class Student {
 		}
 	}
 
+	public String getGroup() {
+		return (this instanceof CybersecurityStudent)?"CYBERSECURITY":"TELECOMMUNICATION";
+	}
+
 	public void saveToFile(String filename) {
 		CsvDriver studentFileDriver = new CsvDriver(filename);
 		List<List<String>> studentFile = new ArrayList<List<String>>();
@@ -88,8 +92,7 @@ public abstract class Student {
 		studentFile.get(2).add(Integer.toString(yearOfBirth));
 
 		studentFile.get(3).add("Group");
-		String group = (this instanceof CybersecurityStudent)?"CYBERSECURITY":"TELECOMMUNICATION";
-		studentFile.get(3).add(group);
+		studentFile.get(3).add(getGroup());
 
 		studentFile.get(4).add("Grades");
 		for(Float grade:grades) {
@@ -97,5 +100,16 @@ public abstract class Student {
 		}
 
 		studentFileDriver.save(studentFile);
+	}
+
+	public boolean saveToDb(int id) {
+		if(SqlDriver.insertStudent(id, name, surname, yearOfBirth, getGroup())) {
+			for(float grade:grades) {
+				if(!SqlDriver.insertGrade(id, grade)) return false;
+			}
+			return true;
+		}else {
+			return false;
+		}
 	}
 }
