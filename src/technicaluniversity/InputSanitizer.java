@@ -1,5 +1,6 @@
 package technicaluniversity;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 import technicaluniversity.Student.StudentType;
@@ -26,10 +27,17 @@ public class InputSanitizer {
 	}
 
 	public static StudentType nextType(Scanner sc) {
-		return toType(sc.next());
+		try {
+			StudentType type = StudentType.valueOf(sc.next().toUpperCase());
+			return type;
+		}catch(IllegalArgumentException e) {
+			System.out.println("Zadej existující studijní skupinu");
+			System.out.println(Arrays.toString(StudentType.values()));
+			return nextType(sc);
+		}
 	}
 
-	public static StudentType toType(String typeString) {
-		return StudentType.valueOf(typeString.toUpperCase()); //TODO sanitize input
+	public static StudentType toType(String typeString) throws IllegalArgumentException {
+		return StudentType.valueOf(typeString.toUpperCase());
 	}
 }
