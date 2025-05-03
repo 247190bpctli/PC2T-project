@@ -28,8 +28,7 @@ public class InputSanitizer {
 
 	public static StudentType nextType(Scanner sc) {
 		try {
-			StudentType type = StudentType.valueOf(sc.next().toUpperCase());
-			return type;
+			return StudentType.valueOf(sc.next().toUpperCase());
 		}catch(IllegalArgumentException e) {
 			System.out.println("Zadej existující studijní skupinu");
 			System.out.println(Arrays.toString(StudentType.values()));
