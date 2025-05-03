@@ -52,12 +52,20 @@ public class Main {
 	                System.out.println("Zadej ID studenta a známku");
 	                id = InputSanitizer.nextInt(sc);
 	                grade = InputSanitizer.nextFloat(sc);
-	                db.getStudent(id).addGrade(grade);
+	                try {
+	                	db.getStudent(id).addGrade(grade);
+	                }catch(NullPointerException e) {
+	                	System.out.println("Známka nebyla přidána, protože student nebyl nalezen");
+	                }
 	                break;
 	            case 3:
 	                System.out.println("Zadej ID studenta ke smazání");
 	                id = InputSanitizer.nextInt(sc);
-	                db.deleteStudent(id);
+	                if(db.deleteStudent(id)) {
+	                	System.out.println("Student odstraněn");
+	                }else {
+	                	System.out.println("Student nebyl odstraněn, protože nebyl nalezen");
+	                }
 	                break;
 	            case 4:
 	                System.out.println("Zadej ID studenta k vyhledání");

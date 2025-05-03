@@ -35,12 +35,12 @@ public class Database {
 		}
 	}
 
-	public Student getStudent(int id) {
-		return students.get(id); //TODO throw exception if null
+	public Student getStudent(int id) throws NullPointerException {
+		return students.get(id);
 	}
 
-	public void deleteStudent(int id) {
-		students.remove(id);
+	public boolean deleteStudent(int id) {
+		return students.remove(id) != null;
 	}
 
 	public String getSortedStudents() {
