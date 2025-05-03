@@ -34,27 +34,15 @@ public abstract class Student {
 		return yearOfBirth;
 	}
 
-	//public void setDateOfBirth(String dateOfBirth) {
-	//	DateOfBirth = dateOfBirth;
-	//}
-
 	public String getSurname() {
 		return surname;
 	}
-
-	//public void setSurname(String surname) {
-	//	Surname = surname;
-	//}
 
 	public String getName() {
 		return name;
 	}
 
 	public abstract String specialAbility();
-
-	//public void setName(String name) {
-	//	Name = name;
-	//}
 
 	@Override
 	public String toString() {
