@@ -16,7 +16,9 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		Database db = new Database();
 
-		if(!db.loadFromDb()) {
+		String dbFile = (args.length > 0)?args[0]:"data/sqlite.db";
+
+		if(!db.loadFromDb(dbFile)) {
 			System.out.println("Databázi se nepodařilo načíst, pro pokus o znovunačtení program restartujte");
 		}
 
@@ -146,7 +148,7 @@ public class Main {
 					}
 					break;
 				case 11:
-					if(db.saveToDb()) {
+					if(db.saveToDb(dbFile)) {
 						sc.close();
 						System.exit(0);
 					} else {

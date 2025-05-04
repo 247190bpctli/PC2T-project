@@ -113,16 +113,16 @@ public class Database {
 		}
 	}
 
-	public boolean loadFromDb() {
-		if(!SqlDriver.connect()) return false;
+	public boolean loadFromDb(String dbFile) {
+		if(!SqlDriver.connect(dbFile)) return false;
 		if(!SqlDriver.createTables()) return false; //must be created in order to suppress error
 		if(!SqlDriver.selectStudentsAndGrades(this)) return false;
 		SqlDriver.disconnect();
 		return true;
 	}
 
-	public boolean saveToDb() {
-		if(!SqlDriver.connect()) return false;
+	public boolean saveToDb(String dbFile) {
+		if(!SqlDriver.connect(dbFile)) return false;
 		if(!SqlDriver.createTables()) return false;
 		if(!SqlDriver.truncate()) return false;
 		for(int studentKey:students.keySet()) {

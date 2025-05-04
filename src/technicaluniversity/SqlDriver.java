@@ -10,10 +10,10 @@ import java.sql.Statement;
 public class SqlDriver {
 	private static Connection conn;
 
-	public static boolean connect() {
+	public static boolean connect(String dbFile) {
 		conn = null;
 		try{
-			conn = DriverManager.getConnection("jdbc:sqlite:data/sqlite.db"); //TODO: make customizable?
+			conn = DriverManager.getConnection("jdbc:sqlite:"+dbFile);
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 			return false;
