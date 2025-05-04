@@ -19,18 +19,18 @@ public class Database {
 	}
 
 	public int addStudent(StudentType type, String name, String surname, int yearOfBirth) {
-		switch(type) {
-			case CYBERSECURITY:
-				students.put(LAST_ID + 1, new CybersecurityStudent(name, surname, yearOfBirth));
-				LAST_ID++;
-				return LAST_ID;
-			case TELECOMMUNICATION:
-				students.put(LAST_ID + 1, new TelecommunicationStudent(name, surname, yearOfBirth));
-				LAST_ID++;
-				return LAST_ID;
-			default:
-				System.out.println("Studijní skupina nenalezena");
-				return -1;
+		switch (type) {
+		case CYBERSECURITY:
+			students.put(LAST_ID + 1, new CybersecurityStudent(name, surname, yearOfBirth));
+			LAST_ID++;
+			return LAST_ID;
+		case TELECOMMUNICATION:
+			students.put(LAST_ID + 1, new TelecommunicationStudent(name, surname, yearOfBirth));
+			LAST_ID++;
+			return LAST_ID;
+		default:
+			System.out.println("Studijní skupina nenalezena");
+			return -1;
 		}
 	}
 
@@ -49,26 +49,26 @@ public class Database {
 			@Override
 			public int compare(Student o1, Student o2) {
 				// vnitrni anonymni trida
-				return o1.getSurname().compareToIgnoreCase(o2.getSurname()); //better to implement compareTo
+				return o1.getSurname().compareToIgnoreCase(o2.getSurname()); // better to implement compareTo
 			}
 		});
-		for(Student student:list) {
-			sortedStudents = sortedStudents.concat(student.toString()+"\n");
+		for (Student student : list) {
+			sortedStudents = sortedStudents.concat(student.toString() + "\n");
 		}
 
 		return sortedStudents;
 	}
 
-	public List<Integer> getStudentCounts(){
+	public List<Integer> getStudentCounts() {
 		int CybersecurityStudentCount = 0;
 		int TelecommunicationStudentCount = 0;
 
 		ArrayList<Student> list = new ArrayList<Student>(students.values());
 
-		for(Student student:list) {
-			if(student instanceof CybersecurityStudent) {
+		for (Student student : list) {
+			if (student instanceof CybersecurityStudent) {
 				CybersecurityStudentCount++;
-			}else {
+			} else {
 				TelecommunicationStudentCount++;
 			}
 		}
@@ -82,51 +82,62 @@ public class Database {
 
 		ArrayList<Student> list = new ArrayList<Student>(students.values());
 
-		for(Student student:list) {
-			if(student instanceof CybersecurityStudent) {
+		for (Student student : list) {
+			if (student instanceof CybersecurityStudent) {
 				CybersecurityStudentAvgGrage += student.getAvgGrade();
-			}else {
+			} else {
 				TelecommunicationStudentAvgGrage += student.getAvgGrade();
 			}
 		}
 
-		return Arrays.asList(CybersecurityStudentAvgGrage/getStudentCounts().get(0), TelecommunicationStudentAvgGrage/getStudentCounts().get(1));
+		return Arrays.asList(CybersecurityStudentAvgGrage / getStudentCounts().get(0),
+				TelecommunicationStudentAvgGrage / getStudentCounts().get(1));
 	}
 
-	public void loadStudentFromFile(String filename) throws IOException, NumberFormatException, IllegalArgumentException {
+	public void loadStudentFromFile(String filename)
+			throws IOException, NumberFormatException, IllegalArgumentException {
 		CsvDriver studentFileDriver = new CsvDriver(filename);
 		List<List<String>> studentFile = studentFileDriver.load();
 
-		//insert student to db
+		// insert student to db
 		StudentType type = InputSanitizer.toType(studentFile.get(3).get(1));
-		int id = addStudent(type, studentFile.get(0).get(1), studentFile.get(1).get(1), Integer.valueOf(studentFile.get(2).get(1)));
+		int id = addStudent(type, studentFile.get(0).get(1), studentFile.get(1).get(1),
+				Integer.valueOf(studentFile.get(2).get(1)));
 
-		//insert grades
+		// insert grades
 		List<String> gradesStrings = studentFile.get(4).subList(1, studentFile.get(4).size());
 		List<Float> grades = new ArrayList<Float>();
 
-		//convert the types
-		for(String gradeString:gradesStrings) grades.add(Float.valueOf(gradeString));
+		// convert the types
+		for (String gradeString : gradesStrings)
+			grades.add(Float.valueOf(gradeString));
 
-		for(Float grade:grades) {
+		for (Float grade : grades) {
 			getStudent(id).addGrade(grade);
 		}
 	}
 
 	public boolean loadFromDb(String dbFile) {
-		if(!SqlDriver.connect(dbFile)) return false;
-		if(!SqlDriver.createTables()) return false; //must be created in order to suppress error
-		if(!SqlDriver.selectStudentsAndGrades(this)) return false;
+		if (!SqlDriver.connect(dbFile))
+			return false;
+		if (!SqlDriver.createTables())
+			return false; // must be created in order to suppress error
+		if (!SqlDriver.selectStudentsAndGrades(this))
+			return false;
 		SqlDriver.disconnect();
 		return true;
 	}
 
 	public boolean saveToDb(String dbFile) {
-		if(!SqlDriver.connect(dbFile)) return false;
-		if(!SqlDriver.createTables()) return false;
-		if(!SqlDriver.truncate()) return false;
-		for(int studentKey:students.keySet()) {
-			if(!students.get(studentKey).saveToDb(studentKey)) return false;
+		if (!SqlDriver.connect(dbFile))
+			return false;
+		if (!SqlDriver.createTables())
+			return false;
+		if (!SqlDriver.truncate())
+			return false;
+		for (int studentKey : students.keySet()) {
+			if (!students.get(studentKey).saveToDb(studentKey))
+				return false;
 		}
 		SqlDriver.disconnect();
 		return true;

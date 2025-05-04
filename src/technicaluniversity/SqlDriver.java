@@ -12,9 +12,9 @@ public class SqlDriver {
 
 	public static boolean connect(String dbFile) {
 		conn = null;
-		try{
-			conn = DriverManager.getConnection("jdbc:sqlite:"+dbFile);
-		}catch(SQLException e) {
+		try {
+			conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			return false;
 		}
@@ -22,64 +22,64 @@ public class SqlDriver {
 	}
 
 	public static void disconnect() {
-		if(conn != null) {
+		if (conn != null) {
 			try {
 				conn.close();
-			}catch(SQLException e) {
+			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
 		}
 	}
 
 	public static boolean createTables() {
-		if(conn == null)
+		if (conn == null)
 			return false;
 		String sql1 = "CREATE TABLE IF NOT EXISTS students ("
-						+ "id integer PRIMARY KEY AUTOINCREMENT,"
-						+ "name varchar(50) NOT NULL,"
-						+ "surname varchar(50) NOT NULL,"
-						+ "yearOfBirth integer NOT NULL,"
-						+ "type varchar(20) NOT NULL);";
+				+ "id integer PRIMARY KEY AUTOINCREMENT,"
+				+ "name varchar(50) NOT NULL,"
+				+ "surname varchar(50) NOT NULL,"
+				+ "yearOfBirth integer NOT NULL,"
+				+ "type varchar(20) NOT NULL);";
 
 		String sql2 = "CREATE TABLE IF NOT EXISTS grades ("
 				+ "id integer,"
 				+ "grade float NOT NULL,"
 				+ "FOREIGN KEY (id) REFERENCES students(id));";
 
-		try{
+		try {
 			Statement stmt = conn.createStatement();
 			stmt.execute(sql1);
 			stmt.execute(sql2);
 			return true;
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 		return false;
 	}
 
 	public static boolean truncate() {
-		if(conn == null)
+		if (conn == null)
 			return false;
 		String sql1 = "DELETE FROM grades;";
 		String sql2 = "DELETE FROM students;";
 
-		try{
+		try {
 			Statement stmt = conn.createStatement();
 			stmt.execute(sql1);
 			stmt.execute(sql2);
 			return true;
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 		return false;
 	}
 
 	public static boolean insertStudent(int id, String name, String surname, int yearOfBirth, String group) {
-		if(conn == null)
+		if (conn == null)
 			return false;
 		String sql = "INSERT INTO students VALUES (?, ?, ?, ?, ?)";
 		try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);//, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement pstmt = conn.prepareStatement(sql);// , Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, id);
 			pstmt.setString(2, name);
 			pstmt.setString(3, surname);
@@ -87,12 +87,10 @@ public class SqlDriver {
 			pstmt.setString(5, group);
 			pstmt.executeUpdate();
 			// get the auto-generated key
-			/*ResultSet rs = pstmt.getGeneratedKeys();
-			if (rs.next()) {
-				return rs.getInt(1);
-			}else {
-				return 0;
-			}*/
+			/*
+			 * ResultSet rs = pstmt.getGeneratedKeys(); if (rs.next()) { return
+			 * rs.getInt(1); }else { return 0; }
+			 */
 			return true;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -101,7 +99,7 @@ public class SqlDriver {
 	}
 
 	public static boolean insertGrade(int id, float grade) {
-		if(conn == null)
+		if (conn == null)
 			return false;
 		String sql = "INSERT INTO grades VALUES (?, ?)";
 		try {
@@ -117,20 +115,20 @@ public class SqlDriver {
 	}
 
 	public static boolean selectStudentsAndGrades(Database db) {
-		if(conn == null)
+		if (conn == null)
 			return false;
-		//students
+		// students
 		String sql1 = "SELECT * FROM students";
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs1 = stmt.executeQuery(sql1);
 			while (rs1.next()) {
 				db.addStudent(InputSanitizer.toType(rs1.getString("type")),
-								rs1.getString("name"),
-								rs1.getString("surname"),
-								rs1.getInt("yearOfBirth"));
+						rs1.getString("name"),
+						rs1.getString("surname"),
+						rs1.getInt("yearOfBirth"));
 
-				//grades
+				// grades
 				String sql2 = "SELECT * FROM grades WHERE id = ?";
 				PreparedStatement pstmt = conn.prepareStatement(sql2);
 				pstmt.setInt(1, rs1.getInt("id"));

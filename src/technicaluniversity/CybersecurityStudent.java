@@ -21,11 +21,11 @@ public class CybersecurityStudent extends Student {
 
 	@Override
 	public String specialAbility() {
-		return "Jméno: "+getHash(getName())+", příjmení: "+getHash(getSurname());
+		return "Jméno: " + getHash(getName()) + ", příjmení: " + getHash(getSurname());
 	}
 
 	@Override
 	public String toString() {
-		return super.toString()+", skupina: kyberbezpečnost";
+		return super.toString() + ", skupina: kyberbezpečnost";
 	}
 }

@@ -7,9 +7,9 @@ import technicaluniversity.Student.StudentType;
 
 public class InputSanitizer {
 	public static int nextInt(Scanner sc) {
-		if(sc.hasNextInt()) {
+		if (sc.hasNextInt()) {
 			return sc.nextInt();
-		}else{
+		} else {
 			System.out.println("Zadej celé číslo");
 			sc.next();
 			return nextInt(sc);
@@ -17,9 +17,9 @@ public class InputSanitizer {
 	}
 
 	public static float nextFloat(Scanner sc) {
-		if(sc.hasNextFloat()) {
+		if (sc.hasNextFloat()) {
 			return sc.nextFloat();
-		}else{
+		} else {
 			System.out.println("Zadej desetinné číslo");
 			sc.next();
 			return nextFloat(sc);
@@ -29,7 +29,7 @@ public class InputSanitizer {
 	public static StudentType nextType(Scanner sc) {
 		try {
 			return StudentType.valueOf(sc.next().toUpperCase());
-		}catch(IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			System.out.println("Zadej existující studijní skupinu");
 			System.out.println(Arrays.toString(StudentType.values()));
 			return nextType(sc);

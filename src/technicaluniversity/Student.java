@@ -10,7 +10,7 @@ public abstract class Student {
 	private int yearOfBirth;
 	private List<Float> grades;
 
-	public static enum StudentType{
+	public static enum StudentType {
 		CYBERSECURITY,
 		TELECOMMUNICATION
 	}
@@ -23,9 +23,9 @@ public abstract class Student {
 	}
 
 	public void addGrade(float grade) {
-		if(grade >= 1 && grade <= 5) {
+		if (grade >= 1 && grade <= 5) {
 			grades.add(grade);
-		}else {
+		} else {
 			System.out.println("Známka nebyla přidána, protože není v povoleném rozsahu 1-5");
 		}
 	}
@@ -46,34 +46,35 @@ public abstract class Student {
 
 	@Override
 	public String toString() {
-		return "Jméno: "+name+", příjmení: "+surname+", rok narození: "+yearOfBirth+", průměr: "+getAvgGrade();
+		return "Jméno: " + name + ", příjmení: " + surname + ", rok narození: " + yearOfBirth + ", průměr: "
+				+ getAvgGrade();
 	}
 
 	public float getAvgGrade() {
-		//sum all grades and divide them
+		// sum all grades and divide them
 		Float gradeSum = 0f;
-		if(!grades.isEmpty()){
-			for(Float grade : grades) {
+		if (!grades.isEmpty()) {
+			for (Float grade : grades) {
 				gradeSum += grade;
 			}
-			return gradeSum/grades.size();
-		}else {
+			return gradeSum / grades.size();
+		} else {
 			return gradeSum;
 		}
 	}
 
 	public String getGroup() {
-		return (this instanceof CybersecurityStudent)?"CYBERSECURITY":"TELECOMMUNICATION";
+		return (this instanceof CybersecurityStudent) ? "CYBERSECURITY" : "TELECOMMUNICATION";
 	}
 
 	public void saveToFile(String filename) throws IOException {
 		CsvDriver studentFileDriver = new CsvDriver(filename);
 		List<List<String>> studentFile = new ArrayList<List<String>>();
-		for(int i = 0; i < 5; i++) { //make 2d list
+		for (int i = 0; i < 5; i++) { // make 2d list
 			studentFile.add(new ArrayList<String>());
 		}
 
-		//insert student params and headers to list
+		// insert student params and headers to list
 		studentFile.get(0).add("Name");
 		studentFile.get(0).add(name);
 
@@ -87,7 +88,7 @@ public abstract class Student {
 		studentFile.get(3).add(getGroup());
 
 		studentFile.get(4).add("Grades");
-		for(Float grade:grades) {
+		for (Float grade : grades) {
 			studentFile.get(4).add(grade.toString());
 		}
 
@@ -95,12 +96,13 @@ public abstract class Student {
 	}
 
 	public boolean saveToDb(int id) {
-		if(SqlDriver.insertStudent(id, name, surname, yearOfBirth, getGroup())) {
-			for(float grade:grades) {
-				if(!SqlDriver.insertGrade(id, grade)) return false;
+		if (SqlDriver.insertStudent(id, name, surname, yearOfBirth, getGroup())) {
+			for (float grade : grades) {
+				if (!SqlDriver.insertGrade(id, grade))
+					return false;
 			}
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
