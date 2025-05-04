@@ -114,20 +114,22 @@ public class Database {
 		}
 	}
 
-	public void loadFromDb() {
-		SqlDriver.connect();
-		SqlDriver.createTables(); //must be created in order to suppress error
-		SqlDriver.selectStudentsAndGrades(this);
+	public boolean loadFromDb() {
+		if(!SqlDriver.connect()) return false;
+		if(!SqlDriver.createTables()) return false; //must be created in order to suppress error
+		if(!SqlDriver.selectStudentsAndGrades(this)) return false;
 		SqlDriver.disconnect();
+		return true;
 	}
 
-	public void saveToDb() {
-		SqlDriver.connect();
-		SqlDriver.createTables();
-		SqlDriver.truncate();
+	public boolean saveToDb() {
+		if(!SqlDriver.connect()) return false;
+		if(!SqlDriver.createTables()) return false;
+		if(!SqlDriver.truncate()) return false;
 		for(int studentKey:students.keySet()) {
-			students.get(studentKey).saveToDb(studentKey);
+			if(!students.get(studentKey).saveToDb(studentKey)) return false;
 		}
 		SqlDriver.disconnect();
+		return true;
 	}
 }

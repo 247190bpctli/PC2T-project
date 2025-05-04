@@ -16,7 +16,7 @@ public class CsvDriver {
 	private List<List<String>> content;
 
 	public CsvDriver(String path){
-		csvFile = new File(path); //TODO handle not found exception
+		csvFile = new File(path);
 	}
 
 	public List<List<String>> load() throws IOException {
@@ -48,8 +48,13 @@ public class CsvDriver {
 		br = new BufferedWriter(s);
 
 		for(List<String> line:data) {
-			for(String column:line) {
-				br.write(column+","); //TODO remove commas ate?? does not matter anyways
+			//do not append comma ate of line
+			for(int i = 0; i < line.size(); i++) {
+				if(i+1 == line.size()) {
+					br.write(line.get(i));
+				}else {
+					br.write(line.get(i)+",");
+				}
 			}
 			br.write("\n");
 		}

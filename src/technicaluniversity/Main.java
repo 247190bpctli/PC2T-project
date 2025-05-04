@@ -125,17 +125,23 @@ public class Main {
 					}
 					break;
 				case 11:
-					db.saveToDb();
-					sc.close();
-					System.exit(0);
+					if(db.saveToDb()) {
+						sc.close();
+						System.exit(0);
+					} else {
+						System.out.println("Zkontrolujte přístupová práva k databázi, nebo program ukončete bez uložení");
+					}
 					break;
+				case 12:
+					System.out.println("Opravdu chcete program ukončit bez uložení? [y/n]");
+					name = sc.next();
+					if(name == "y") {
+						sc.close();
+						System.exit(0);
+					}
 				default:
 					break;
 			}
-
-		} while (optn != 12);
-
-		sc.close();
-		System.exit(0);
+		} while (true);
 	}
 }
