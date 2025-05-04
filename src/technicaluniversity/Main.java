@@ -138,7 +138,7 @@ public class Main {
 				case 12:
 					System.out.println("Opravdu chcete program ukončit bez uložení? [y/n]");
 					name = sc.next();
-					if(name == "y") {
+					if(name.equalsIgnoreCase("y")) {
 						sc.close();
 						System.exit(0);
 					}
