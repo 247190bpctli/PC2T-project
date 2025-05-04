@@ -94,8 +94,24 @@ public class Main {
 					break;
 				case 7:
 					System.out.println("Studijní průměry v jednotlivých studijních skupinách");
-					System.out.println("Skupina kyberbezpečnost: "+db.getStudentAvgGrade().get(0));
-					System.out.println("Skupina telekomunikace: "+db.getStudentAvgGrade().get(1));
+					if(db.getStudentCounts().get(0) != 0) {
+						if(db.getStudentAvgGrade().get(0) != 0.0f) {
+							System.out.println("Skupina kyberbezpečnost: "+db.getStudentAvgGrade().get(0));
+						}else {
+							System.out.println("Studijní skupina kyberbezpečnost nemá žádné známky");
+						}
+					} else {
+						System.out.println("Studijní skupina kyberbezpečnost je prázdná");
+					}
+					if(db.getStudentCounts().get(1) != 0) {
+						if(db.getStudentAvgGrade().get(1) != 0.0f) {
+							System.out.println("Skupina telekomunikace: "+db.getStudentAvgGrade().get(1));
+						}else {
+							System.out.println("Studijní skupina telekomunikace nemá žádné známky");
+						}
+					} else {
+						System.out.println("Studijní skupina telekomunikace je prázdná");
+					}
 					break;
 				case 8:
 					System.out.println("Počty zapsaných studentů v jednotlivých studijních skupinách");
