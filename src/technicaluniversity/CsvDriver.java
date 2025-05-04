@@ -20,7 +20,7 @@ public class CsvDriver {
 	}
 
 	public List<List<String>> load() throws IOException {
-		FileReader s = null; // null surpasses not initialized exception
+		FileReader s = null;
 		BufferedReader br = null;
 
 		s = new FileReader(csvFile);
@@ -42,14 +42,13 @@ public class CsvDriver {
 	}
 
 	public void save(List<List<String>> data) throws IOException {
-		FileWriter s = null; // null surpasses not initialized exception
+		FileWriter s = null;
 		BufferedWriter br = null;
 
 		s = new FileWriter(csvFile);
 		br = new BufferedWriter(s);
 
 		for (List<String> line : data) {
-			// do not append comma ate of line
 			for (int i = 0; i < line.size(); i++) {
 				if (i + 1 == line.size()) {
 					br.write(line.get(i));

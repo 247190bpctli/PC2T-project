@@ -130,7 +130,7 @@ public class Main {
 				} catch (IOException e) {
 					System.out.println("Soubor nelze otevřít");
 					System.out.println(e.getMessage());
-				} catch (IllegalArgumentException e) { // handles numberformatexception too
+				} catch (IllegalArgumentException e) {
 					System.out.println("Soubor není ve správném formátu");
 					System.out.println(e.getMessage());
 				}

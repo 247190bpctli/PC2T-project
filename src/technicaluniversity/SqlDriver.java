@@ -79,18 +79,13 @@ public class SqlDriver {
 			return false;
 		String sql = "INSERT INTO students VALUES (?, ?, ?, ?, ?)";
 		try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);// , Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			pstmt.setString(2, name);
 			pstmt.setString(3, surname);
 			pstmt.setInt(4, yearOfBirth);
 			pstmt.setString(5, group);
 			pstmt.executeUpdate();
-			// get the auto-generated key
-			/*
-			 * ResultSet rs = pstmt.getGeneratedKeys(); if (rs.next()) { return
-			 * rs.getInt(1); }else { return 0; }
-			 */
 			return true;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -117,7 +112,6 @@ public class SqlDriver {
 	public static boolean selectStudentsAndGrades(Database db) {
 		if (conn == null)
 			return false;
-		// students
 		String sql1 = "SELECT * FROM students";
 		try {
 			Statement stmt = conn.createStatement();
@@ -128,7 +122,6 @@ public class SqlDriver {
 						rs1.getString("surname"),
 						rs1.getInt("yearOfBirth"));
 
-				// grades
 				String sql2 = "SELECT * FROM grades WHERE id = ?";
 				PreparedStatement pstmt = conn.prepareStatement(sql2);
 				pstmt.setInt(1, rs1.getInt("id"));

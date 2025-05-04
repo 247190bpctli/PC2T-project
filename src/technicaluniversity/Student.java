@@ -51,7 +51,6 @@ public abstract class Student {
 	}
 
 	public float getAvgGrade() {
-		// sum all grades and divide them
 		Float gradeSum = 0f;
 		if (!grades.isEmpty()) {
 			for (Float grade : grades) {
@@ -70,11 +69,10 @@ public abstract class Student {
 	public void saveToFile(String filename) throws IOException {
 		CsvDriver studentFileDriver = new CsvDriver(filename);
 		List<List<String>> studentFile = new ArrayList<List<String>>();
-		for (int i = 0; i < 5; i++) { // make 2d list
+		for (int i = 0; i < 5; i++) {
 			studentFile.add(new ArrayList<String>());
 		}
 
-		// insert student params and headers to list
 		studentFile.get(0).add("Name");
 		studentFile.get(0).add(name);
 

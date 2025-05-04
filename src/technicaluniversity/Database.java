@@ -48,8 +48,7 @@ public class Database {
 		Collections.sort(list, new Comparator<Student>() {
 			@Override
 			public int compare(Student o1, Student o2) {
-				// vnitrni anonymni trida
-				return o1.getSurname().compareToIgnoreCase(o2.getSurname()); // better to implement compareTo
+				return o1.getSurname().compareToIgnoreCase(o2.getSurname());
 			}
 		});
 		for (Student student : list) {
@@ -99,16 +98,13 @@ public class Database {
 		CsvDriver studentFileDriver = new CsvDriver(filename);
 		List<List<String>> studentFile = studentFileDriver.load();
 
-		// insert student to db
 		StudentType type = InputSanitizer.toType(studentFile.get(3).get(1));
 		int id = addStudent(type, studentFile.get(0).get(1), studentFile.get(1).get(1),
 				Integer.valueOf(studentFile.get(2).get(1)));
 
-		// insert grades
 		List<String> gradesStrings = studentFile.get(4).subList(1, studentFile.get(4).size());
 		List<Float> grades = new ArrayList<Float>();
 
-		// convert the types
 		for (String gradeString : gradesStrings)
 			grades.add(Float.valueOf(gradeString));
 
@@ -121,7 +117,7 @@ public class Database {
 		if (!SqlDriver.connect(dbFile))
 			return false;
 		if (!SqlDriver.createTables())
-			return false; // must be created in order to suppress error
+			return false;
 		if (!SqlDriver.selectStudentsAndGrades(this))
 			return false;
 		SqlDriver.disconnect();
