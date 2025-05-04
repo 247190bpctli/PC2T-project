@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
 
 import technicaluniversity.Student.StudentType;
 
@@ -94,13 +93,13 @@ public class Database {
 		return Arrays.asList(CybersecurityStudentAvgGrage/getStudentCounts().get(0), TelecommunicationStudentAvgGrage/getStudentCounts().get(1));
 	} //TODO: fix returns NaN if empty
 
-	public void loadStudentFromFile(String filename) throws IOException {
+	public void loadStudentFromFile(String filename) throws IOException, NumberFormatException, IllegalArgumentException {
 		CsvDriver studentFileDriver = new CsvDriver(filename);
 		List<List<String>> studentFile = studentFileDriver.load();
 
 		//insert student to db
-		StudentType type = InputSanitizer.nextType(new Scanner(studentFile.get(3).get(1))); //TODO workaround, may be done differently
-		int id = addStudent(type, studentFile.get(0).get(1), studentFile.get(1).get(1), Integer.valueOf(studentFile.get(2).get(1))); //TODO sanitize inputs
+		StudentType type = InputSanitizer.toType(studentFile.get(3).get(1));
+		int id = addStudent(type, studentFile.get(0).get(1), studentFile.get(1).get(1), Integer.valueOf(studentFile.get(2).get(1)));
 
 		//insert grades
 		List<String> gradesStrings = studentFile.get(4).subList(1, studentFile.get(4).size());
@@ -114,7 +113,7 @@ public class Database {
 		}
 	}
 
-	public boolean loadFromDb() {
+	public boolean loadFromDb() { //TODO sanitize inputs
 		if(!SqlDriver.connect()) return false;
 		if(!SqlDriver.createTables()) return false; //must be created in order to suppress error
 		if(!SqlDriver.selectStudentsAndGrades(this)) return false;
