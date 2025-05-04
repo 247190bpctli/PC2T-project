@@ -113,7 +113,7 @@ public class Database {
 		}
 	}
 
-	public boolean loadFromDb() { //TODO sanitize inputs
+	public boolean loadFromDb() {
 		if(!SqlDriver.connect()) return false;
 		if(!SqlDriver.createTables()) return false; //must be created in order to suppress error
 		if(!SqlDriver.selectStudentsAndGrades(this)) return false;

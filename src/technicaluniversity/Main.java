@@ -15,9 +15,11 @@ public class Main {
 		int yearOfBirth;
 		Scanner sc = new Scanner(System.in);
 		Database db = new Database();
-		
-		db.loadFromDb();
-		
+
+		if(!db.loadFromDb()) {
+			System.out.println("Databázi se nepodařilo načíst, pro pokus o znovunačtení program restartujte");
+		}
+
 		do {
 			System.out.println("--------------------------------------");
 			System.out.println("Databáze studentů technické univerzity");
