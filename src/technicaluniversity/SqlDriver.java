@@ -139,7 +139,7 @@ public class SqlDriver {
 					db.getStudent(rs1.getInt("id")).addGrade(rs2.getFloat("grade"));
 				}
 			}
-		} catch (SQLException e) {
+		} catch (IllegalArgumentException | SQLException e) {
 			System.out.println(e.getMessage());
 			return false;
 		}
