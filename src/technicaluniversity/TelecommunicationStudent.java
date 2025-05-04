@@ -8,7 +8,6 @@ public class TelecommunicationStudent extends Student{
 		super(name, surname, yearOfBirth);
 	}
 
-	//Java 9+ TODO check if OK
 	Map<Character, String> MorseCharMap = Map.ofEntries(
 	    entry('A', ".-"),
 	    entry('B', "-..."),
